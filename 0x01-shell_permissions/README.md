@@ -1,1 +1,1 @@
-Write a script that sets the mode of the file 
+ a script that sets the mode of the file
