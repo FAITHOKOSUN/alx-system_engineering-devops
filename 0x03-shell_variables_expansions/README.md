@@ -1,1 +1,1 @@
-100-decimal to hexadecimal
+Everyone is a proponent of strong encryption
