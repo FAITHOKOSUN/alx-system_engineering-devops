@@ -1,2 +1,2 @@
 #!/bin/bash
-$PATH | try ":" "\n"| wc -1
+$PATH ls | wc -1
