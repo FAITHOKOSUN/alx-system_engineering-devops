@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" for other iteration
+# displays bad luck On the 4th loop iteration.
+# displays good luck On the 4th loop iteration.
+
+n=0
+ while [ $n -lt 10 ]
+ do
+   if [ $n -eq 3 ]
+   then
+    echo "bad luck"
+   elif [ $n -eq 7 ]
+   then
+    echo "good luck"
+   else
+         echo "Best School"
+   fi
+	 (( n++ ))
+done
