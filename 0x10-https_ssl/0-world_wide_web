@@ -1,20 +1,30 @@
 #!/usr/bin/env bash
-# Bash script that will display information about subdomains.
+# Bash script that will display information about subdomain
+#   domain_information "$1" "web-01"
+#   domain_information "$1" "web-02"
+# elif [ "$#" == 2 ]
+# then
+#   domain_information "$1" "$2"
+# fi
+#-- To be evaluated --
 
-show_records ()
-{
-    printf "The subdomain %s is a " "$2"
-    dig "$2.$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $4 }'
-    printf " record and points to "
-    dig "$2.$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $5 }'
-    echo ""
+subdomains_all=( "www" "lb-01" "web-01" "web-02" )
+
+runDig () {
+    subdomain=$1
+    domain=$2
+
+    dig "$subdomain.$domain" | grep -A1 'ANSWER SECTION:' | tail -1 | awk -v s="$subdomain" 'BEGIN { FS = " " } ; { print "The subdomain " s " is a " $4 " record and points to " $5 }'
 }
 
-if [ -z "$2" ]; then
-   for subdom in "www" "lb-01" "web-01" "web-02"
-   do
-       show_records "$1" "$subdom"
-   done
-else
-    show_records "$1" "$2"
-fi
+if [ $# -eq 1 ]; then
+    domain="$1"
+    for i in "${subdomains_all[@]}"
+    do
+        runDig "$i" "$domain"
+    done
+elif [ $# -eq 2 ]; then
+    domain="$1"
+    subdomain="$2"
+    runDig "$subdomain" "$domain"
+fii
